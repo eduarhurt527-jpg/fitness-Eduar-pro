@@ -1,10 +1,10 @@
-# index.html
-<!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>🏆 FITNESS PRO - Tu Entrenador Personal</title>
+    <title>🏆 FITNESS PRO 2.0 - Tu Entrenador Personal Inteligente</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tu entrenador personal inteligente 100% gratis. Planes personalizados, seguimiento de IMC, temporizador HIIT/Tabata, rutinas semanales y más. ¡Sin descargar, sin registrarte, empieza ahora!">
     <style>
         :root {
             --primary: #ff6b6b;
@@ -15,441 +15,879 @@
             --gray: #4a4a4a;
             --success: #2ecc71;
             --warning: #f39c12;
+            --card-bg: rgba(41, 47, 54, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.08);
         }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         body {
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             color: var(--light);
             min-height: 100vh;
             padding: 20px;
+            background-attachment: fixed;
         }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
+        
+        /* Header con diseño profesional */
         header {
             text-align: center;
-            padding: 30px 0;
-            background: rgba(0,0,0,0.3);
-            border-radius: 15px;
+            padding: 40px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
             position: relative;
+            overflow: hidden;
         }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(78,205,196,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-            text-shadow: 0 0 10px rgba(255,107,107,0.5);
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
         }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        /* Sección de perfil de usuario mejorada */
         .user-profile {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
         }
-        .bmi-calculator {
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            min-width: 250px;
+        
+        .profile-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .bmi-calculator input {
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border-color: rgba(78,205,196,0.3);
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 2px solid var(--secondary);
-            background: #1a1a2e;
-            color: white;
-            text-align: center;
-            font-size: 1rem;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
         }
-        .bmi-calculator button {
-            background: var(--secondary);
-            color: var(--dark);
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 10px 0;
-            transition: all 0.3s ease;
-        }
-        .bmi-calculator button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px var(--secondary);
-        }
-        .bmi-result {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 15px 0;
-            padding: 10px;
-            border-radius: 8px;
-            background: var(--dark);
-        }
-        .timer-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin: 30px 0;
-            background: rgba(0,0,0,0.3);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .timer-display {
-            font-size: 4rem;
-            font-weight: bold;
-            background: var(--dark);
-            padding: 20px 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            min-width: 200px;
-            text-align: center;
-            color: var(--secondary);
-            text-shadow: 0 0 10px var(--secondary);
-            transition: all 0.3s ease;
-        }
-        .timer-controls {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .timer-controls button {
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin: 5px;
-            min-width: 120px;
-        }
-        .start-btn { background: var(--success); color: white; }
-        .pause-btn { background: var(--warning); color: white; }
-        .reset-btn { background: var(--primary); color: white; }
-        .timer-controls button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px currentColor;
-        }
-        .workout-section {
-            background: rgba(0,0,0,0.3);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        h2 {
+        
+        .profile-card h3 {
             color: var(--secondary);
             margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 3px solid var(--secondary);
-            padding-bottom: 10px;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .exercise-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+        
+        .profile-card h3 i {
+            font-size: 1.8rem;
         }
-        .exercise-card {
-            background: var(--dark);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid transparent;
+            outline: none;
         }
-        .exercise-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+        
+        .form-group input:focus {
             border-color: var(--secondary);
+            background: rgba(78,205,196,0.1);
+            box-shadow: 0 0 15px rgba(78,205,196,0.3);
         }
-        .exercise-card h3 {
-            color: var(--primary);
-            margin: 15px 0 15px;
-            font-size: 1.4rem;
+        
+        .bmi-button {
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            color: var(--dark);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(78,205,196,0.3);
         }
-        .exercise-icon {
-            font-size: 4rem;
-            margin: 15px 0;
+        
+        .bmi-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(78,205,196,0.4);
+        }
+        
+        .bmi-result {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+            background: var(--glass-bg);
+            text-align: center;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 80px;
-            background: rgba(78, 205, 196, 0.1);
-            border-radius: 12px;
+            transition: all 0.3s ease;
         }
+        
+        /* Temporizador mejorado */
+        .timer-section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .timer-section h2 {
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .timer-display {
+            font-size: 5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            padding: 30px 60px;
+            border-radius: 25px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            min-width: 300px;
+            text-align: center;
+            color: var(--secondary);
+            text-shadow: 0 0 20px var(--secondary);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(78,205,196,0.3);
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timer-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78,205,196,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .timer-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .timer-btn {
+            padding: 18px 35px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .start-btn { 
+            background: linear-gradient(to right, var(--success), #27ae60); 
+            color: white; 
+        }
+        
+        .pause-btn { 
+            background: linear-gradient(to right, var(--warning), #e67e22); 
+            color: white; 
+        }
+        
+        .reset-btn { 
+            background: linear-gradient(to right, var(--primary), #e74c3c); 
+            color: white; 
+        }
+        
+        .customize-btn { 
+            background: linear-gradient(to right, var(--accent), #3498db); 
+            color: white; 
+        }
+        
+        .timer-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .timer-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Sección de ejercicios profesional */
+        .workout-section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .section-header h2 {
+            color: var(--secondary);
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            background: var(--glass-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--secondary);
+            color: var(--dark);
+            border-color: var(--secondary);
+        }
+        
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .exercise-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exercise-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border-color: rgba(78,205,196,0.3);
+        }
+        
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to bottom, rgba(78,205,196,0.1), transparent);
+            transition: height 0.4s ease;
+            z-index: -1;
+        }
+        
+        .exercise-card:hover::before {
+            height: 100%;
+        }
+        
+        .exercise-icon {
+            font-size: 5rem;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            background: rgba(78,205,196,0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise-card:hover .exercise-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(78,205,196,0.2);
+        }
+        
+        .exercise-card h3 {
+            color: var(--primary);
+            margin: 20px 0 15px;
+            font-size: 1.6rem;
+            transition: color 0.3s ease;
+        }
+        
+        .exercise-card:hover h3 {
+            color: var(--secondary);
+        }
+        
         .exercise-card p {
             color: #ccc;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            line-height: 1.4;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            min-height: 80px;
         }
-        .exercise-duration {
-            background: rgba(255, 107, 107, 0.2);
-            padding: 8px;
-            border-radius: 8px;
+        
+        .exercise-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item .value {
+            font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--secondary);
         }
-        .exercise-modal {
-            display: none;
+        
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .customize-exercise-btn {
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            color: var(--dark);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(69,183,209,0.3);
+        }
+        
+        .customize-exercise-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(69,183,209,0.4);
+        }
+        
+        /* Modal profesional */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
             z-index: 1000;
+            display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
         }
-        .modal-content {
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
             background: var(--dark);
-            padding: 30px;
-            border-radius: 20px;
+            padding: 40px;
+            border-radius: 25px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            max-width: 700px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             position: relative;
-            animation: modalAppear 0.3s ease;
+            transform: translateY(50px);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        @keyframes modalAppear {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
         }
+        
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
+            top: 25px;
+            right: 25px;
+            font-size: 1.8rem;
             cursor: pointer;
             color: #aaa;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
             background: none;
             border: none;
-            padding: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        
         .close-modal:hover {
             color: var(--primary);
+            background: rgba(255,107,107,0.1);
         }
+        
         .modal-header {
             text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
             border-bottom: 2px solid var(--secondary);
+            position: relative;
         }
+        
         .modal-header h3 {
             color: var(--secondary);
-            font-size: 2rem;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
         }
+        
+        .modal-subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+        
         .exercise-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
         }
-        .form-group {
+        
+        .form-control {
             display: flex;
             flex-direction: column;
+            gap: 10px;
+        }
+        
+        .form-control label {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
             gap: 8px;
         }
-        .form-group label {
+        
+        .form-control input, .form-control select {
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .form-control input:focus, .form-control select:focus {
+            border-color: var(--accent);
+            background: rgba(69,183,209,0.1);
+            box-shadow: 0 0 15px rgba(69,183,209,0.3);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .slider-value {
+            min-width: 60px;
+            text-align: center;
             font-weight: bold;
             color: var(--secondary);
-            font-size: 1.1rem;
         }
-        .form-group input, .form-group select {
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid var(--accent);
-            background: #1a1a2e;
-            color: white;
-            font-size: 1rem;
+        
+        input[type="range"] {
+            flex: 1;
+            height: 10px;
+            border-radius: 5px;
+            background: #333;
+            outline: none;
+            -webkit-appearance: none;
         }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--secondary);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(78,205,196,0.5);
+        }
+        
         .form-actions {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-        }
-        .form-actions button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-        .save-btn { background: var(--success); color: white; }
-        .cancel-btn { background: var(--gray); color: white; }
-        .form-actions button:hover {
-            transform: scale(1.05);
-        }
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .stat-card {
-            background: rgba(0,0,0,0.3);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-        }
-        .stat-card h3 {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        .stat-card p {
-            color: #ccc;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        .weekly-plan {
-            background: rgba(0,0,0,0.3);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .week-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .day-card {
-            background: var(--dark);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 150px;
-            position: relative;
-            border: 2px solid transparent;
-        }
-        .day-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            border-color: var(--accent);
-        }
-        .day-card h4 {
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        .day-exercises {
-            font-size: 0.9rem;
-            color: #ccc;
-            line-height: 1.4;
-            min-height: 60px;
-        }
-        .add-exercise-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        .add-exercise-btn:hover {
-            background: #ff5252;
-            transform: scale(1.05);
-        }
-        footer {
-            text-align: center;
-            padding: 30px 0;
             margin-top: 30px;
-            color: #aaa;
-            font-size: 0.95rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
         }
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #333;
-            border-radius: 5px;
-            margin: 15px 0;
+        
+        .action-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .save-btn { 
+            background: linear-gradient(to right, var(--success), #27ae60); 
+            color: white; 
+        }
+        
+        .cancel-btn { 
+            background: linear-gradient(to right, #7f8c8d, #95a5a6); 
+            color: white; 
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* Consejos y trucos interactivos */
+        .tips-section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .tips-section h2 {
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .tip-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
             overflow: hidden;
         }
-        .progress-fill {
+        
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border-color: rgba(78,205,196,0.3);
+        }
+        
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--secondary);
+            transition: height 0.3s ease;
+        }
+        
+        .tip-card:hover::before {
             height: 100%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            width: 0%;
-            transition: width 0.5s ease;
         }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--success);
+        
+        .tip-card h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tip-content {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .tip-card.active .tip-content {
+            max-height: 500px;
+            margin-bottom: 20px;
+        }
+        
+        .tip-toggle {
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .tip-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78,205,196,0.3);
+        }
+        
+        /* Footer profesional */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 40px;
+            color: #aaa;
+            font-size: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+        }
+        
+        .footer-link:hover {
             color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            z-index: 10000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            animation: slideIn 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+            border-color: var(--secondary);
+            background: rgba(78,205,196,0.1);
         }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        
+        /* Animaciones y microinteracciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
+        
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
         }
+        
+        /* Responsive profesional */
         @media (max-width: 768px) {
-            .exercise-grid {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .timer-display {
+                font-size: 3.5rem;
+                padding: 20px 40px;
+            }
+            
+            .exercise-grid, .tips-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .timer-controls, .form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .timer-btn, .action-btn {
+                min-width: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
             h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
+            
             .timer-display {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                padding: 15px 30px;
             }
-            .week-days {
-                grid-template-columns: repeat(2, 1fr);
+            
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -457,255 +895,520 @@
 <body>
     <div class="container">
         <header>
-            <h1>🏆 FITNESS PRO</h1>
-            <p>Tu entrenador personal inteligente - Planes personalizados y seguimiento profesional</p>
-            
-            <div class="user-profile">
-                <div class="bmi-calculator">
-                    <h3>📊 Calculadora IMC</h3>
-                    <input type="number" id="weight" placeholder="Peso (kg)" min="30" max="300" step="0.1">
-                    <input type="number" id="height" placeholder="Altura (cm)" min="100" max="250">
-                    <button id="calculateBMI">Calcular IMC</button>
-                    <div class="bmi-result" id="bmiResult">Introduce tus datos</div>
-                </div>
-                
-                <div class="bmi-calculator">
-                    <h3>📈 Progreso Semanal</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="weeklyProgress" style="width: 65%;"></div>
-                    </div>
-                    <p>65% completado esta semana</p>
-                    <p>Peso actual: <span id="currentWeight">75.5</span> kg</p>
-                </div>
-            </div>
+            <h1>🏆 FITNESS PRO 2.0</h1>
+            <p class="subtitle">Tu entrenador personal inteligente - Planes personalizados, seguimiento profesional y comunidad de apoyo. ¡Transforma tu cuerpo y tu vida!</p>
         </header>
 
-        <div class="timer-section">
-            <h2>⏱️ Temporizador de Entrenamiento</h2>
-            <div class="timer-display" id="timer">05:00</div>
-            <div class="timer-controls">
-                <button class="start-btn" id="startBtn">▶️ Iniciar</button>
-                <button class="pause-btn" id="pauseBtn" disabled>⏸️ Pausar</button>
-                <button class="reset-btn" id="resetBtn">⏹️ Reiniciar</button>
-                <button id="customizeTimer" style="background: var(--accent); color: white; padding: 15px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">⚙️ Personalizar</button>
+        <div class="user-profile animate-in">
+            <div class="profile-card">
+                <h3>📊 Calculadora IMC Profesional</h3>
+                <div class="form-group">
+                    <label for="weight">Peso (kg)</label>
+                    <input type="number" id="weight" placeholder="Ej: 75.5" min="30" max="300" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="height">Altura (cm)</label>
+                    <input type="number" id="height" placeholder="Ej: 175" min="100" max="250">
+                </div>
+                <button class="bmi-button" id="calculateBMI">🎯 Calcular IMC Profesional</button>
+                <div class="bmi-result" id="bmiResult">Introduce tus datos para un análisis profesional</div>
+            </div>
+            
+            <div class="profile-card">
+                <h3>📈 Panel de Progreso</h3>
+                <div class="form-group">
+                    <label for="goalWeight">Peso Objetivo (kg)</label>
+                    <input type="number" id="goalWeight" placeholder="Ej: 70.0" min="30" max="300" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="weeklyGoal">Objetivo Semanal</label>
+                    <select id="weeklyGoal">
+                        <option value="lose_0.5">Perder 0.5 kg/semana</option>
+                        <option value="lose_1">Perder 1 kg/semana</option>
+                        <option value="maintain">Mantener peso</option>
+                        <option value="gain_0.5">Ganar 0.5 kg/semana</option>
+                        <option value="gain_1">Ganar 1 kg/semana</option>
+                    </select>
+                </div>
+                <button class="bmi-button" id="setGoal">🎯 Establecer Objetivo</button>
+                <div class="bmi-result" id="goalResult">Establece tu objetivo para comenzar</div>
             </div>
         </div>
 
-        <div class="workout-section">
-            <h2>💪 Ejercicios Disponibles</h2>
+        <div class="timer-section animate-in">
+            <h2>⏱️ Temporizador Profesional HIIT/Tabata</h2>
+            <div class="timer-display" id="timer">05:00</div>
+            <div class="timer-controls">
+                <button class="timer-btn start-btn" id="startBtn">
+                    <span>▶️</span> Iniciar Entrenamiento
+                </button>
+                <button class="timer-btn pause-btn" id="pauseBtn" disabled>
+                    <span>⏸️</span> Pausar
+                </button>
+                <button class="timer-btn reset-btn" id="resetBtn">
+                    <span>⏹️</span> Reiniciar
+                </button>
+                <button class="timer-btn customize-btn" id="customizeTimer">
+                    <span>⚙️</span> Personalizar
+                </button>
+            </div>
+            <p style="color: #aaa; margin-top: 20px;">Selecciona tu modo de entrenamiento: HIIT (20s ejercicio/10s descanso) | Tabata (40s ejercicio/20s descanso) | Personalizado</p>
+        </div>
+
+        <div class="workout-section animate-in">
+            <div class="section-header">
+                <h2>💪 Biblioteca de Ejercicios Profesionales</h2>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="cardio">Cardio</button>
+                    <button class="filter-btn" data-filter="strength">Fuerza</button>
+                    <button class="filter-btn" data-filter="core">Core</button>
+                </div>
+            </div>
+            
             <div class="exercise-grid" id="exerciseGrid">
                 <!-- Los ejercicios se generarán aquí con JavaScript -->
             </div>
         </div>
 
-        <div class="weekly-plan">
-            <h2>📅 Plan Semanal</h2>
-            <div class="week-days" id="weekDays">
-                <!-- Los días de la semana se generarán aquí -->
-            </div>
-        </div>
-
-        <div class="stats-section">
-            <div class="stat-card">
-                <h3 id="totalWorkouts">24</h3>
-                <p>Entrenamientos Completados</p>
-            </div>
-            <div class="stat-card">
-                <h3 id="totalHours">12.5</h3>
-                <p>Horas Entrenadas</p>
-            </div>
-            <div class="stat-card">
-                <h3 id="caloriesBurned">8,450</h3>
-                <p>Calorías Quemadas</p>
-            </div>
-            <div class="stat-card">
-                <h3 id="currentStreak">7</h3>
-                <p>Días Consecutivos</p>
+        <div class="tips-section animate-in">
+            <h2>💡 Consejos Profesionales y Trucos</h2>
+            <div class="tips-grid" id="tipsGrid">
+                <!-- Los consejos se generarán aquí con JavaScript -->
             </div>
         </div>
 
         <footer>
-            <p> FITNESS PRO © 2024 - Transforma tu cuerpo, transforma tu vida</p>
+            <p>🏆 FITNESS PRO 2.0 © 2024 - Tu camino hacia una vida más saludable</p>
             <p>Los resultados varían según el individuo. Consulta con un profesional antes de comenzar cualquier programa de ejercicio.</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Términos y Condiciones</a>
+                <a href="#" class="footer-link">Política de Privacidad</a>
+                <a href="#" class="footer-link">Contacto</a>
+                <a href="#" class="footer-link">Versión Premium</a>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.9rem;">Diseñado con ❤️ para ayudarte a alcanzar tus metas fitness</p>
         </footer>
     </div>
 
     <!-- Modal para personalizar ejercicio -->
-    <div class="exercise-modal" id="exerciseModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeExerciseModal">&times;</button>
+    <div class="modal-overlay" id="exerciseModal">
+        <div class="modal">
+            <button class="close-modal" id="closeExerciseModal">×</button>
             <div class="modal-header">
-                <h3 id="modalTitle">Personalizar Ejercicio</h3>
+                <h3 id="modalTitle">Personalizar Ejercicio Profesional</h3>
+                <p class="modal-subtitle">Ajusta los parámetros para maximizar tus resultados</p>
             </div>
             <div class="exercise-form">
-                <div class="form-group">
-                    <label for="exerciseDuration">Duración (segundos)</label>
+                <div class="form-control">
+                    <label for="exerciseDuration">
+                        <span>⏱️</span> Duración (segundos)
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="exerciseDurationSlider" min="10" max="300" value="45">
+                        <span class="slider-value" id="exerciseDurationValue">45s</span>
+                    </div>
                     <input type="number" id="exerciseDuration" min="10" max="300" value="45">
                 </div>
-                <div class="form-group">
-                    <label for="exerciseReps">Repeticiones</label>
+                
+                <div class="form-control">
+                    <label for="exerciseReps">
+                        <span>🔢</span> Repeticiones por Serie
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="exerciseRepsSlider" min="1" max="50" value="15">
+                        <span class="slider-value" id="exerciseRepsValue">15</span>
+                    </div>
                     <input type="number" id="exerciseReps" min="1" max="50" value="15">
                 </div>
-                <div class="form-group">
-                    <label for="exerciseSets">Series</label>
+                
+                <div class="form-control">
+                    <label for="exerciseSets">
+                        <span>📊</span> Número de Series
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="exerciseSetsSlider" min="1" max="10" value="3">
+                        <span class="slider-value" id="exerciseSetsValue">3</span>
+                    </div>
                     <input type="number" id="exerciseSets" min="1" max="10" value="3">
                 </div>
-                <div class="form-group">
-                    <label for="exerciseIntensity">Intensidad</label>
+                
+                <div class="form-control">
+                    <label for="exerciseIntensity">
+                        <span>🔥</span> Intensidad del Entrenamiento
+                    </label>
                     <select id="exerciseIntensity">
-                        <option value="low">Baja</option>
-                        <option value="medium" selected>Media</option>
-                        <option value="high">Alta</option>
+                        <option value="low">Baja - Ideal para principiantes</option>
+                        <option value="medium" selected>Media - Recomendada para la mayoría</option>
+                        <option value="high">Alta - Para usuarios avanzados</option>
+                        <option value="max">Máxima - Solo para atletas experimentados</option>
                     </select>
                 </div>
-                <div class="form-actions">
-                    <button class="save-btn" id="saveExerciseSettings">✅ Guardar Configuración</button>
-                    <button class="cancel-btn" id="cancelExerciseSettings">❌ Cancelar</button>
+                
+                <div class="form-control">
+                    <label for="exerciseRest">
+                        <span>🛌</span> Tiempo de Descanso entre Series (segundos)
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="exerciseRestSlider" min="10" max="120" value="30">
+                        <span class="slider-value" id="exerciseRestValue">30s</span>
+                    </div>
+                    <input type="number" id="exerciseRest" min="10" max="120" value="30">
                 </div>
+            </div>
+            <div class="form-actions">
+                <button class="action-btn save-btn" id="saveExerciseSettings">
+                    <span>✅</span> Guardar y Aplicar
+                </button>
+                <button class="action-btn cancel-btn" id="cancelExerciseSettings">
+                    <span>❌</span> Cancelar
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Modal para personalizar temporizador -->
-    <div class="exercise-modal" id="timerModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeTimerModal">&times;</button>
+    <div class="modal-overlay" id="timerModal">
+        <div class="modal">
+            <button class="close-modal" id="closeTimerModal">×</button>
             <div class="modal-header">
-                <h3>Personalizar Temporizador</h3>
+                <h3>Configuración Profesional del Temporizador</h3>
+                <p class="modal-subtitle">Personaliza tu sesión de entrenamiento para maximizar resultados</p>
             </div>
             <div class="exercise-form">
-                <div class="form-group">
-                    <label for="timerMinutes">Minutos</label>
-                    <input type="number" id="timerMinutes" min="1" max="60" value="5">
+                <div class="form-control">
+                    <label for="timerMinutes">
+                        <span>⏱️</span> Duración Total de la Sesión (minutos)
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="timerMinutesSlider" min="5" max="60" value="20">
+                        <span class="slider-value" id="timerMinutesValue">20 min</span>
+                    </div>
+                    <input type="number" id="timerMinutes" min="5" max="60" value="20">
                 </div>
-                <div class="form-group">
-                    <label for="timerType">Tipo de Entrenamiento</label>
+                
+                <div class="form-control">
+                    <label for="timerType">
+                        <span>🎯</span> Tipo de Entrenamiento
+                    </label>
                     <select id="timerType">
-                        <option value="hiit">HIIT (20s ejercicio / 10s descanso)</option>
-                        <option value="tabata">Tabata (40s ejercicio / 20s descanso)</option>
-                        <option value="custom" selected>Personalizado</option>
+                        <option value="hiit">HIIT - 20s ejercicio / 10s descanso (Alta intensidad)</option>
+                        <option value="tabata">Tabata - 40s ejercicio / 20s descanso (Máxima intensidad)</option>
+                        <option value="custom">Personalizado - Configura tus propios intervalos</option>
+                        <option value="steady">Cardio Estable - Sin intervalos (Ideal para principiantes)</option>
                     </select>
                 </div>
-                <div class="form-actions">
-                    <button class="save-btn" id="saveTimerSettings">✅ Aplicar</button>
-                    <button class="cancel-btn" id="cancelTimerSettings">❌ Cancelar</button>
+                
+                <div class="form-control" id="customIntervals" style="display: none;">
+                    <label>.Intervalos Personalizados</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label for="workInterval">Tiempo de Trabajo (s)</label>
+                            <input type="number" id="workInterval" min="10" max="120" value="30">
+                        </div>
+                        <div>
+                            <label for="restInterval">Tiempo de Descanso (s)</label>
+                            <input type="number" id="restInterval" min="10" max="120" value="30">
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="form-control">
+                    <label for="warmupTime">
+                        <span>🌡️</span> Tiempo de Calentamiento (minutos)
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="warmupTimeSlider" min="0" max="10" value="5">
+                        <span class="slider-value" id="warmupTimeValue">5 min</span>
+                    </div>
+                    <input type="number" id="warmupTime" min="0" max="10" value="5">
+                </div>
+                
+                <div class="form-control">
+                    <label for="cooldownTime">
+                        <span>❄️</span> Tiempo de Enfriamiento (minutos)
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="cooldownTimeSlider" min="0" max="10" value="5">
+                        <span class="slider-value" id="cooldownTimeValue">5 min</span>
+                    </div>
+                    <input type="number" id="cooldownTime" min="0" max="10" value="5">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="action-btn save-btn" id="saveTimerSettings">
+                    <span>✅</span> Aplicar Configuración
+                </button>
+                <button class="action-btn cancel-btn" id="cancelTimerSettings">
+                    <span>❌</span> Cancelar
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Base de datos de ejercicios
+        // Configuración inicial y variables
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('FITNESS PRO 2.0 cargado correctamente');
+            
+            // Inicializar componentes
+            initExercises();
+            initTips();
+            initEventListeners();
+            initSliders();
+            
+            // Añadir animación de entrada a los elementos
+            setTimeout(() => {
+                document.querySelectorAll('.animate-in').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+            }, 500);
+        });
+
+        // Base de datos de ejercicios mejorada
         const exercises = [
             {
                 id: 1,
-                name: "Sentadillas",
+                name: "Sentadillas Profundas",
                 icon: "🦵",
-                description: "Pies al ancho de hombros, baja como si te sentaras en una silla. Mantén la espalda recta.",
-                defaultDuration: 45,
-                defaultReps: 15,
-                defaultSets: 3,
+                description: "La reina de los ejercicios para piernas. Mantén la espalda recta y baja hasta que tus muslos estén paralelos al suelo.",
+                duration: 45,
+                reps: 15,
+                sets: 3,
+                rest: 30,
+                intensity: "medium",
                 caloriesPerMin: 8,
-                muscleGroups: ["Piernas", "Glúteos"]
+                muscleGroups: ["Piernas", "Glúteos", "Core"],
+                type: "strength",
+                difficulty: "beginner",
+                tips: [
+                    "Mantén las rodillas alineadas con los dedos de los pies",
+                    "No dejes que las rodillas se vayan hacia adentro",
+                    "Inspira al bajar, espira al subir"
+                ]
             },
             {
                 id: 2,
-                name: "Flexiones",
+                name: "Flexiones con Técnica Perfecta",
                 icon: "💪",
-                description: "Mantén el cuerpo recto, baja el pecho hacia el suelo. Codos a 45 grados del cuerpo.",
-                defaultDuration: 45,
-                defaultReps: 12,
-                defaultSets: 3,
+                description: "El ejercicio definitivo para pecho, hombros y tríceps. Mantén el cuerpo en línea recta desde la cabeza hasta los talones.",
+                duration: 45,
+                reps: 12,
+                sets: 3,
+                rest: 45,
+                intensity: "medium",
                 caloriesPerMin: 10,
-                muscleGroups: ["Pecho", "Tríceps", "Hombros"]
+                muscleGroups: ["Pecho", "Tríceps", "Hombros", "Core"],
+                type: "strength",
+                difficulty: "intermediate",
+                tips: [
+                    "Las manos ligeramente más anchas que los hombros",
+                    "Baja hasta que tu pecho casi toque el suelo",
+                    "Mantén el core activado durante todo el movimiento"
+                ]
             },
             {
                 id: 3,
-                name: "Plancha",
+                name: "Plancha con Control Máximo",
                 icon: "🧘‍♂️",
-                description: "Cuerpo recto, codos bajo hombros, mantén la posición sin bajar la cadera.",
-                defaultDuration: 30,
-                defaultReps: 1,
-                defaultSets: 3,
+                description: "El mejor ejercicio para el core. Mantén una línea recta desde la cabeza hasta los talones, sin dejar caer la cadera.",
+                duration: 60,
+                reps: 1,
+                sets: 3,
+                rest: 30,
+                intensity: "medium",
                 caloriesPerMin: 5,
-                muscleGroups: ["Abdominales", "Core"]
+                muscleGroups: ["Abdominales", "Core", "Espalda"],
+                type: "core",
+                difficulty: "beginner",
+                tips: [
+                    "Mira al suelo, no al frente",
+                    "Aprieta los glúteos y el core",
+                    "Respira profundamente y mantén la posición"
+                ]
             },
             {
                 id: 4,
-                name: "Burpees",
+                name: "Burpees Explosivos",
                 icon: "🤸‍♂️",
-                description: "De pie, baja al suelo, salta hacia atrás, vuelve y salta arriba con las manos.",
-                defaultDuration: 45,
-                defaultReps: 10,
-                defaultSets: 3,
+                description: "El ejercicio más completo para quemar calorías. Combina sentadilla, plancha, flexión y salto vertical.",
+                duration: 45,
+                reps: 10,
+                sets: 3,
+                rest: 60,
+                intensity: "high",
                 caloriesPerMin: 12,
-                muscleGroups: ["Cardio", "Cuerpo completo"]
+                muscleGroups: ["Cardio", "Cuerpo completo", "Piernas", "Pecho"],
+                type: "cardio",
+                difficulty: "advanced",
+                tips: [
+                    "Realiza el movimiento con control, no con velocidad",
+                    "Salta lo más alto posible en la fase final",
+                    "Descansa lo necesario entre series para mantener la calidad"
+                ]
             },
             {
                 id: 5,
-                name: "Mountain Climbers",
+                name: "Mountain Climbers Dinámicos",
                 icon: "🏃‍♂️",
-                description: "En posición de plancha, lleva rodillas al pecho alternadamente lo más rápido posible.",
-                defaultDuration: 45,
-                defaultReps: 30,
-                defaultSets: 3,
+                description: "Excelente para cardio y abdominales. Lleva las rodillas al pecho alternadamente con la máxima velocidad controlada.",
+                duration: 45,
+                reps: 30,
+                sets: 3,
+                rest: 30,
+                intensity: "high",
                 caloriesPerMin: 11,
-                muscleGroups: ["Cardio", "Abdominales"]
+                muscleGroups: ["Cardio", "Abdominales", "Piernas"],
+                type: "cardio",
+                difficulty: "intermediate",
+                tips: [
+                    "Mantén las caderas estables, no las subas y bajes",
+                    "Lleva las rodillas hacia el pecho, no hacia el suelo",
+                    "Mantén el core activado durante todo el ejercicio"
+                ]
             },
             {
                 id: 6,
-                name: "Jumping Jacks",
+                name: "Jumping Jacks con Ritmo",
                 icon: "🕺",
-                description: "Salta abriendo piernas y brazos, luego vuelve a cerrarlos. Mantén el ritmo constante.",
-                defaultDuration: 60,
-                defaultReps: 50,
-                defaultSets: 3,
+                description: "Clásico ejercicio cardiovascular. Salta abriendo piernas y brazos, luego vuelve a cerrarlos manteniendo el ritmo.",
+                duration: 60,
+                reps: 50,
+                sets: 3,
+                rest: 30,
+                intensity: "medium",
                 caloriesPerMin: 9,
-                muscleGroups: ["Cardio", "Piernas"]
+                muscleGroups: ["Cardio", "Piernas", "Hombros"],
+                type: "cardio",
+                difficulty: "beginner",
+                tips: [
+                    "Aterriza suavemente sobre las puntas de los pies",
+                    "Mantén el core activado para proteger la espalda",
+                    "Encuentra un ritmo constante que puedas mantener"
+                ]
             },
             {
                 id: 7,
-                name: "Lunges",
+                name: "Lunges con Control",
                 icon: "🦵",
-                description: "Da un paso adelante, baja hasta que ambas rodillas formen 90°. Alterna piernas.",
-                defaultDuration: 45,
-                defaultReps: 12,
-                defaultSets: 3,
+                description: "Perfecto para piernas y glúteos. Da un paso adelante y baja hasta que ambas rodillas formen 90 grados.",
+                duration: 45,
+                reps: 12,
+                sets: 3,
+                rest: 45,
+                intensity: "medium",
                 caloriesPerMin: 8,
-                muscleGroups: ["Piernas", "Glúteos"]
+                muscleGroups: ["Piernas", "Glúteos", "Cuádriceps"],
+                type: "strength",
+                difficulty: "intermediate",
+                tips: [
+                    "Mantén el torso erguido durante todo el movimiento",
+                    "No dejes que la rodilla delantera pase la punta del pie",
+                    "Empuja con el talón del pie delantero para volver a la posición inicial"
+                ]
             },
             {
                 id: 8,
-                name: "Abdominales",
+                name: "Abdominales con Técnica",
                 icon: "🤸‍♀️",
-                description: "Acostado, levanta torso hacia rodillas, controla la bajada. No tires del cuello.",
-                defaultDuration: 45,
-                defaultReps: 20,
-                defaultSets: 3,
+                description: "Para abdominales superiores. Levanta el torso con control, no tires del cuello con las manos.",
+                duration: 45,
+                reps: 20,
+                sets: 3,
+                rest: 30,
+                intensity: "medium",
                 caloriesPerMin: 7,
-                muscleGroups: ["Abdominales"]
+                muscleGroups: ["Abdominales superiores", "Core"],
+                type: "core",
+                difficulty: "beginner",
+                tips: [
+                    "Coloca las manos ligeramente detrás de las orejas, no en la nuca",
+                    "Levanta con los abdominales, no con el cuello",
+                    "Baja con control, no dejes caer el torso"
+                ]
             },
             {
                 id: 9,
-                name: "Zancadas",
+                name: "Zancadas Dinámicas",
                 icon: "🚶‍♂️",
-                description: "Caminata con zancadas profundas, manteniendo el equilibrio y la postura.",
-                defaultDuration: 60,
-                defaultReps: 15,
-                defaultSets: 3,
+                description: "Caminata con zancadas profundas. Mantén el equilibrio y la postura erguida durante todo el movimiento.",
+                duration: 60,
+                reps: 15,
+                sets: 3,
+                rest: 45,
+                intensity: "medium",
                 caloriesPerMin: 9,
-                muscleGroups: ["Piernas", "Glúteos"]
+                muscleGroups: ["Piernas", "Glúteos", "Equilibrio"],
+                type: "strength",
+                difficulty: "intermediate",
+                tips: [
+                    "Da pasos largos para mayor activación muscular",
+                    "Mantén el torso erguido y mira al frente",
+                    "Controla la bajada y empuja con fuerza para subir"
+                ]
             },
             {
                 id: 10,
-                name: "Puente de Glúteos",
+                name: "Puente de Glúteos con Elevación",
                 icon: "🍑",
-                description: "Acostado, levanta cadera contrayendo glúteos. Baja lentamente sin tocar el suelo.",
-                defaultDuration: 45,
-                defaultReps: 15,
-                defaultSets: 3,
+                description: "El mejor ejercicio para glúteos. Levanta la cadera contrayendo glúteos al máximo en la parte superior.",
+                duration: 45,
+                reps: 15,
+                sets: 3,
+                rest: 30,
+                intensity: "medium",
                 caloriesPerMin: 6,
-                muscleGroups: ["Glúteos", "Espalda baja"]
+                muscleGroups: ["Glúteos", "Espalda baja", "Femorales"],
+                type: "strength",
+                difficulty: "beginner",
+                tips: [
+                    "Aprieta los glúteos al máximo en la parte superior",
+                    "No arquees la espalda baja, mantén una línea recta",
+                    "Baja con control, no dejes caer la cadera"
+                ]
+            }
+        ];
+
+        // Consejos profesionales
+        const tips = [
+            {
+                title: "🔥 Calentamiento: Tu Mejor Aliado",
+                icon: "🌡️",
+                content: "Nunca saltes el calentamiento. Dedica 5-10 minutos a preparar tu cuerpo para el entrenamiento. Esto reduce el riesgo de lesiones en un 50% y mejora tu rendimiento. Comienza con movimientos suaves y aumenta gradualmente la intensidad.",
+                category: "prevencion"
+            },
+            {
+                title: "💧 Hidratación: Más Importante de lo que Piensas",
+                icon: "🚰",
+                content: "Bebe agua antes, durante y después del entrenamiento. La deshidratación puede reducir tu rendimiento en hasta un 30%. Lleva siempre una botella de agua contigo y toma pequeños sorbos cada 15-20 minutos durante tu sesión.",
+                category: "nutricion"
+            },
+            {
+                title: "🎯 Técnica sobre Cantidad: Calidad ante Todo",
+                icon: "✅",
+                content: "Es mejor hacer 5 repeticiones con técnica perfecta que 15 con mala forma. La calidad del movimiento es más importante que la cantidad. Concéntrate en sentir el músculo trabajando y en mantener una buena postura durante todo el ejercicio.",
+                category: "tecnica"
+            },
+            {
+                title: "🛌 Descanso: Cuando tu Cuerpo se Reconstruye",
+                icon: "💤",
+                content: "Los músculos no crecen durante el entrenamiento, sino durante el descanso. Asegúrate de dormir 7-9 horas por noche y de dar a cada grupo muscular al menos 48 horas de descanso antes de volver a entrenarlo. El sobreentrenamiento es contraproducente.",
+                category: "recuperacion"
+            },
+            {
+                title: "📈 Progresión: La Clave del Éxito a Largo Plazo",
+                icon: "🚀",
+                content: "Tu cuerpo se adapta rápidamente. Para seguir progresando, debes aumentar gradualmente la intensidad, el volumen o la dificultad de tus entrenamientos. Lleva un registro de tus progresos y trata de superarte cada semana, aunque sea solo un poco.",
+                category: "progresion"
+            },
+            {
+                title: "🥗 Nutrición: El 70% de tus Resultados",
+                icon: "🍎",
+                content: "No puedes out-train una mala dieta. La nutrición representa al menos el 70% de tus resultados. Concéntrate en alimentos reales, proteínas magras, vegetales y carbohidratos complejos. Evita los procesados y el azúcar refinado.",
+                category: "nutricion"
             }
         ];
 
@@ -713,182 +1416,357 @@
         let appState = {
             currentExercise: null,
             timer: {
-                minutes: 5,
+                minutes: 20,
                 seconds: 0,
-                totalSeconds: 300,
+                totalSeconds: 1200,
                 isRunning: false,
                 isPaused: false,
                 interval: null,
-                type: "custom"
+                type: "custom",
+                warmup: 5,
+                cooldown: 5,
+                workInterval: 30,
+                restInterval: 30
             },
-            userStats: {
-                totalWorkouts: 24,
-                totalHours: 12.5,
-                caloriesBurned: 8450,
-                currentStreak: 7,
+            user: {
                 weight: 75.5,
-                bmi: 0
+                height: 175,
+                bmi: 0,
+                goalWeight: 70.0,
+                weeklyGoal: "lose_0.5",
+                workoutHistory: []
             },
-            weeklyPlan: [
-                { day: "Lunes", exercises: ["Sentadillas", "Flexiones", "Plancha"] },
-                { day: "Martes", exercises: ["Burpees", "Mountain Climbers"] },
-                { day: "Miércoles", exercises: ["Jumping Jacks", "Lunges", "Abdominales"] },
-                { day: "Jueves", exercises: ["Sentadillas", "Puente de Glúteos"] },
-                { day: "Viernes", exercises: ["Burpees", "Flexiones", "Plancha"] },
-                { day: "Sábado", exercises: ["Mountain Climbers", "Jumping Jacks", "Zancadas"] },
-                { day: "Domingo", exercises: ["Descanso"] }
-            ],
-            exerciseSettings: {}
+            exerciseSettings: {},
+            filters: {
+                type: "all"
+            }
         };
 
-        // Elementos del DOM
-        const timerDisplay = document.getElementById('timer');
-        const startBtn = document.getElementById('startBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const exerciseGrid = document.getElementById('exerciseGrid');
-        const weekDays = document.getElementById('weekDays');
-        const exerciseModal = document.getElementById('exerciseModal');
-        const timerModal = document.getElementById('timerModal');
-        const modalTitle = document.getElementById('modalTitle');
-        
-        // Botones de IMC
-        const calculateBMIButton = document.getElementById('calculateBMI');
-        const weightInput = document.getElementById('weight');
-        const heightInput = document.getElementById('height');
-        const bmiResult = document.getElementById('bmiResult');
-        
-        // Botones de temporizador
-        const customizeTimerButton = document.getElementById('customizeTimer');
-        const closeTimerModalButton = document.getElementById('closeTimerModal');
-        const saveTimerSettingsButton = document.getElementById('saveTimerSettings');
-        const cancelTimerSettingsButton = document.getElementById('cancelTimerSettings');
-        
-        // Botones de ejercicio
-        const closeExerciseModalButton = document.getElementById('closeExerciseModal');
-        const saveExerciseSettingsButton = document.getElementById('saveExerciseSettings');
-        const cancelExerciseSettingsButton = document.getElementById('cancelExerciseSettings');
-
-        // Inicializar la aplicación
-        function init() {
-            console.log("Inicializando aplicación...");
-            renderExercises();
-            renderWeeklyPlan();
-            updateTimerDisplay();
-            updateStatsDisplay();
-            
-            // Event listeners para IMC
-            calculateBMIButton.addEventListener('click', calculateBMI);
-            weightInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') calculateBMI();
-            });
-            heightInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') calculateBMI();
-            });
-            
-            // Event listeners para temporizador
-            startBtn.addEventListener('click', startTimer);
-            pauseBtn.addEventListener('click', pauseTimer);
-            resetBtn.addEventListener('click', resetTimer);
-            customizeTimerButton.addEventListener('click', customizeTimer);
-            closeTimerModalButton.addEventListener('click', closeTimerModal);
-            saveTimerSettingsButton.addEventListener('click', saveTimerSettings);
-            cancelTimerSettingsButton.addEventListener('click', closeTimerModal);
-            
-            // Event listeners para ejercicios
-            closeExerciseModalButton.addEventListener('click', closeExerciseModal);
-            saveExerciseSettingsButton.addEventListener('click', saveExerciseSettings);
-            cancelExerciseSettingsButton.addEventListener('click', closeExerciseModal);
-            
-            console.log("Aplicación inicializada correctamente");
-        }
-
-        // Renderizar ejercicios
-        function renderExercises() {
+        // Inicializar ejercicios
+        function initExercises() {
+            const exerciseGrid = document.getElementById('exerciseGrid');
             exerciseGrid.innerHTML = '';
+            
             exercises.forEach(exercise => {
                 const card = document.createElement('div');
                 card.className = 'exercise-card';
+                card.dataset.type = exercise.type;
+                
                 card.innerHTML = `
                     <div class="exercise-icon">${exercise.icon}</div>
                     <h3>${exercise.name}</h3>
                     <p>${exercise.description}</p>
-                    <div class="exercise-duration">⭐ ${exercise.defaultDuration}s | ${exercise.defaultReps} rep</div>
+                    <div class="exercise-stats">
+                        <div class="stat-item">
+                            <div class="value">${exercise.duration}s</div>
+                            <div class="label">Duración</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="value">${exercise.reps}</div>
+                            <div class="label">Repeticiones</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="value">${exercise.sets}</div>
+                            <div class="label">Series</div>
+                        </div>
+                    </div>
+                    <button class="customize-exercise-btn" data-id="${exercise.id}">
+                        🎯 Personalizar Ejercicio
+                    </button>
                 `;
-                card.addEventListener('click', function() {
-                    console.log(`Abriendo modal para: ${exercise.name}`);
-                    openExerciseModal(exercise);
+                
+                card.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('customize-exercise-btn')) {
+                        e.stopPropagation();
+                        const exerciseId = parseInt(e.target.getAttribute('data-id'));
+                        const exercise = exercises.find(ex => ex.id === exerciseId);
+                        openExerciseModal(exercise);
+                    }
                 });
+                
                 exerciseGrid.appendChild(card);
             });
         }
 
-        // Renderizar plan semanal
-        function renderWeeklyPlan() {
-            weekDays.innerHTML = '';
-            appState.weeklyPlan.forEach((day, index) => {
-                const dayCard = document.createElement('div');
-                dayCard.className = 'day-card';
-                let exercisesHTML = '';
-                if (day.exercises[0] === "Descanso") {
-                    exercisesHTML = '<p style="color: var(--success); font-weight: bold;">💪 DESCANSO</p>';
-                } else {
-                    exercisesHTML = day.exercises.map(ex => `<div>• ${ex}</div>`).join('');
-                }
-                dayCard.innerHTML = `
-                    <h4>${day.day}</h4>
-                    <div class="day-exercises">${exercisesHTML}</div>
-                    <button class="add-exercise-btn" data-day-index="${index}">➕ Añadir</button>
+        // Inicializar consejos
+        function initTips() {
+            const tipsGrid = document.getElementById('tipsGrid');
+            tipsGrid.innerHTML = '';
+            
+            tips.forEach((tip, index) => {
+                const card = document.createElement('div');
+                card.className = 'tip-card';
+                card.innerHTML = `
+                    <h3>${tip.icon} ${tip.title}</h3>
+                    <div class="tip-content">
+                        ${tip.content}
+                    </div>
+                    <button class="tip-toggle">📌 ${index === 0 ? 'Ver consejo completo' : 'Mostrar consejo'}</button>
                 `;
                 
-                // Añadir evento al botón de añadir
-                const addButton = dayCard.querySelector('.add-exercise-btn');
-                addButton.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const dayIndex = parseInt(this.getAttribute('data-day-index'));
-                    addExerciseToDay(dayIndex);
+                card.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const button = this.querySelector('.tip-toggle');
+                    if (this.classList.contains('active')) {
+                        button.textContent = '📌 Ocultar consejo';
+                    } else {
+                        button.textContent = '📌 Mostrar consejo';
+                    }
                 });
                 
-                weekDays.appendChild(dayCard);
+                tipsGrid.appendChild(card);
+            });
+        }
+
+        // Inicializar sliders
+        function initSliders() {
+            // Slider para duración del ejercicio
+            const durationSlider = document.getElementById('exerciseDurationSlider');
+            const durationValue = document.getElementById('exerciseDurationValue');
+            const durationInput = document.getElementById('exerciseDuration');
+            
+            if (durationSlider) {
+                durationSlider.addEventListener('input', function() {
+                    durationValue.textContent = this.value + 's';
+                    durationInput.value = this.value;
+                });
+                
+                durationInput.addEventListener('input', function() {
+                    durationSlider.value = this.value;
+                    durationValue.textContent = this.value + 's';
+                });
+            }
+            
+            // Slider para repeticiones
+            const repsSlider = document.getElementById('exerciseRepsSlider');
+            const repsValue = document.getElementById('exerciseRepsValue');
+            const repsInput = document.getElementById('exerciseReps');
+            
+            if (repsSlider) {
+                repsSlider.addEventListener('input', function() {
+                    repsValue.textContent = this.value;
+                    repsInput.value = this.value;
+                });
+                
+                repsInput.addEventListener('input', function() {
+                    repsSlider.value = this.value;
+                    repsValue.textContent = this.value;
+                });
+            }
+            
+            // Slider para series
+            const setsSlider = document.getElementById('exerciseSetsSlider');
+            const setsValue = document.getElementById('exerciseSetsValue');
+            const setsInput = document.getElementById('exerciseSets');
+            
+            if (setsSlider) {
+                setsSlider.addEventListener('input', function() {
+                    setsValue.textContent = this.value;
+                    setsInput.value = this.value;
+                });
+                
+                setsInput.addEventListener('input', function() {
+                    setsSlider.value = this.value;
+                    setsValue.textContent = this.value;
+                });
+            }
+            
+            // Slider para descanso
+            const restSlider = document.getElementById('exerciseRestSlider');
+            const restValue = document.getElementById('exerciseRestValue');
+            const restInput = document.getElementById('exerciseRest');
+            
+            if (restSlider) {
+                restSlider.addEventListener('input', function() {
+                    restValue.textContent = this.value + 's';
+                    restInput.value = this.value;
+                });
+                
+                restInput.addEventListener('input', function() {
+                    restSlider.value = this.value;
+                    restValue.textContent = this.value + 's';
+                });
+            }
+            
+            // Slider para minutos del temporizador
+            const timerMinutesSlider = document.getElementById('timerMinutesSlider');
+            const timerMinutesValue = document.getElementById('timerMinutesValue');
+            const timerMinutesInput = document.getElementById('timerMinutes');
+            
+            if (timerMinutesSlider) {
+                timerMinutesSlider.addEventListener('input', function() {
+                    timerMinutesValue.textContent = this.value + ' min';
+                    timerMinutesInput.value = this.value;
+                });
+                
+                timerMinutesInput.addEventListener('input', function() {
+                    timerMinutesSlider.value = this.value;
+                    timerMinutesValue.textContent = this.value + ' min';
+                });
+            }
+            
+            // Slider para calentamiento
+            const warmupSlider = document.getElementById('warmupTimeSlider');
+            const warmupValue = document.getElementById('warmupTimeValue');
+            const warmupInput = document.getElementById('warmupTime');
+            
+            if (warmupSlider) {
+                warmupSlider.addEventListener('input', function() {
+                    warmupValue.textContent = this.value + ' min';
+                    warmupInput.value = this.value;
+                });
+                
+                warmupInput.addEventListener('input', function() {
+                    warmupSlider.value = this.value;
+                    warmupValue.textContent = this.value + ' min';
+                });
+            }
+            
+            // Slider para enfriamiento
+            const cooldownSlider = document.getElementById('cooldownTimeSlider');
+            const cooldownValue = document.getElementById('cooldownTimeValue');
+            const cooldownInput = document.getElementById('cooldownTime');
+            
+            if (cooldownSlider) {
+                cooldownSlider.addEventListener('input', function() {
+                    cooldownValue.textContent = this.value + ' min';
+                    cooldownInput.value = this.value;
+                });
+                
+                cooldownInput.addEventListener('input', function() {
+                    cooldownSlider.value = this.value;
+                    cooldownValue.textContent = this.value + ' min';
+                });
+            }
+        }
+
+        // Inicializar event listeners
+        function initEventListeners() {
+            // Filtros de ejercicios
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filterType = this.getAttribute('data-filter');
+                    appState.filters.type = filterType;
+                    filterExercises();
+                });
+            });
+            
+            // Botón de calcular IMC
+            const calculateBMIButton = document.getElementById('calculateBMI');
+            if (calculateBMIButton) {
+                calculateBMIButton.addEventListener('click', calculateBMI);
+            }
+            
+            // Botón de establecer objetivo
+            const setGoalButton = document.getElementById('setGoal');
+            if (setGoalButton) {
+                setGoalButton.addEventListener('click', setGoal);
+            }
+            
+            // Temporizador
+            const startBtn = document.getElementById('startBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const customizeTimerButton = document.getElementById('customizeTimer');
+            
+            if (startBtn) startBtn.addEventListener('click', startTimer);
+            if (pauseBtn) pauseBtn.addEventListener('click', pauseTimer);
+            if (resetBtn) resetBtn.addEventListener('click', resetTimer);
+            if (customizeTimerButton) customizeTimerButton.addEventListener('click', customizeTimer);
+            
+            // Modales
+            const closeExerciseModalButton = document.getElementById('closeExerciseModal');
+            const saveExerciseSettingsButton = document.getElementById('saveExerciseSettings');
+            const cancelExerciseSettingsButton = document.getElementById('cancelExerciseSettings');
+            
+            const closeTimerModalButton = document.getElementById('closeTimerModal');
+            const saveTimerSettingsButton = document.getElementById('saveTimerSettings');
+            const cancelTimerSettingsButton = document.getElementById('cancelTimerSettings');
+            
+            if (closeExerciseModalButton) closeExerciseModalButton.addEventListener('click', closeExerciseModal);
+            if (saveExerciseSettingsButton) saveExerciseSettingsButton.addEventListener('click', saveExerciseSettings);
+            if (cancelExerciseSettingsButton) cancelExerciseSettingsButton.addEventListener('click', closeExerciseModal);
+            
+            if (closeTimerModalButton) closeTimerModalButton.addEventListener('click', closeTimerModal);
+            if (saveTimerSettingsButton) saveTimerSettingsButton.addEventListener('click', saveTimerSettings);
+            if (cancelTimerSettingsButton) cancelTimerSettingsButton.addEventListener('click', closeTimerModal);
+            
+            // Cambio de tipo de temporizador
+            const timerTypeSelect = document.getElementById('timerType');
+            const customIntervals = document.getElementById('customIntervals');
+            
+            if (timerTypeSelect && customIntervals) {
+                timerTypeSelect.addEventListener('change', function() {
+                    if (this.value === 'custom') {
+                        customIntervals.style.display = 'block';
+                    } else {
+                        customIntervals.style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        // Filtrar ejercicios
+        function filterExercises() {
+            const exerciseCards = document.querySelectorAll('.exercise-card');
+            const filterType = appState.filters.type;
+            
+            exerciseCards.forEach(card => {
+                if (filterType === 'all' || card.dataset.type === filterType) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    card.style.display = 'none';
+                }
             });
         }
 
         // Abrir modal de ejercicio
         function openExerciseModal(exercise) {
-            console.log("Abriendo modal de ejercicio:", exercise.name);
             appState.currentExercise = exercise;
-            modalTitle.textContent = `Personalizar ${exercise.name}`;
+            document.getElementById('modalTitle').textContent = `Personalizar ${exercise.name}`;
             
             // Cargar configuración guardada o usar valores por defecto
-            const settings = appState.exerciseSettings[exercise.id] || {
-                duration: exercise.defaultDuration,
-                reps: exercise.defaultReps,
-                sets: exercise.defaultSets,
-                intensity: "medium"
-            };
+            const settings = appState.exerciseSettings[exercise.id] || exercise;
             
             document.getElementById('exerciseDuration').value = settings.duration;
-            document.getElementById('exerciseReps').value = settings.reps;
-            document.getElementById('exerciseSets').value = settings.sets;
-            document.getElementById('exerciseIntensity').value = settings.intensity;
+            document.getElementById('exerciseDurationSlider').value = settings.duration;
+            document.getElementById('exerciseDurationValue').textContent = settings.duration + 's';
             
-            exerciseModal.style.display = 'flex';
-            console.log("Modal de ejercicio abierto");
+            document.getElementById('exerciseReps').value = settings.reps;
+            document.getElementById('exerciseRepsSlider').value = settings.reps;
+            document.getElementById('exerciseRepsValue').textContent = settings.reps;
+            
+            document.getElementById('exerciseSets').value = settings.sets;
+            document.getElementById('exerciseSetsSlider').value = settings.sets;
+            document.getElementById('exerciseSetsValue').textContent = settings.sets;
+            
+            document.getElementById('exerciseIntensity').value = settings.intensity;
+            document.getElementById('exerciseRest').value = settings.rest || 30;
+            document.getElementById('exerciseRestSlider').value = settings.rest || 30;
+            document.getElementById('exerciseRestValue').textContent = (settings.rest || 30) + 's';
+            
+            document.getElementById('exerciseModal').classList.add('active');
         }
 
         // Guardar configuración del ejercicio
         function saveExerciseSettings() {
-            if (!appState.currentExercise) {
-                console.error("No hay ejercicio seleccionado");
-                return;
-            }
+            if (!appState.currentExercise) return;
             
             const duration = parseInt(document.getElementById('exerciseDuration').value);
             const reps = parseInt(document.getElementById('exerciseReps').value);
             const sets = parseInt(document.getElementById('exerciseSets').value);
             const intensity = document.getElementById('exerciseIntensity').value;
+            const rest = parseInt(document.getElementById('exerciseRest').value);
             
-            if (isNaN(duration) || isNaN(reps) || isNaN(sets)) {
+            if (isNaN(duration) || isNaN(reps) || isNaN(sets) || isNaN(rest)) {
                 alert("Por favor, introduce valores válidos");
                 return;
             }
@@ -897,42 +1775,40 @@
                 duration: duration,
                 reps: reps,
                 sets: sets,
-                intensity: intensity
+                intensity: intensity,
+                rest: rest
             };
             
             appState.exerciseSettings[appState.currentExercise.id] = settings;
             
             // Actualizar la tarjeta del ejercicio
             const cards = document.querySelectorAll('.exercise-card');
-            let found = false;
             cards.forEach(card => {
-                if (card.querySelector('h3').textContent === appState.currentExercise.name) {
-                    card.querySelector('.exercise-duration').textContent = 
-                        `⭐ ${settings.duration}s | ${settings.reps} rep | ${settings.sets} series`;
-                    found = true;
+                const button = card.querySelector('.customize-exercise-btn');
+                if (button && parseInt(button.getAttribute('data-id')) === appState.currentExercise.id) {
+                    const statItems = card.querySelectorAll('.stat-item .value');
+                    if (statItems.length >= 3) {
+                        statItems[0].textContent = duration + 's';
+                        statItems[1].textContent = reps;
+                        statItems[2].textContent = sets;
+                    }
                 }
             });
             
-            if (found) {
-                showNotification(`✅ Configuración de ${appState.currentExercise.name} guardada`);
-            } else {
-                console.warn("No se encontró la tarjeta del ejercicio para actualizar");
-            }
-            
+            showNotification(`✅ Configuración de ${appState.currentExercise.name} guardada`);
             closeExerciseModal();
         }
 
         // Cerrar modal de ejercicio
         function closeExerciseModal() {
-            exerciseModal.style.display = 'none';
+            document.getElementById('exerciseModal').classList.remove('active');
             appState.currentExercise = null;
-            console.log("Modal de ejercicio cerrado");
         }
 
         // Calcular IMC
         function calculateBMI() {
-            const weight = parseFloat(weightInput.value);
-            const height = parseFloat(heightInput.value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
             
             if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
                 alert("Por favor, introduce valores válidos para peso y altura");
@@ -945,46 +1821,112 @@
             
             let category = "";
             let color = "";
+            let advice = "";
             
             if (bmi < 18.5) {
                 category = "Bajo peso";
                 color = "#ff9800";
+                advice = "Considera aumentar tu ingesta calórica con alimentos nutritivos.";
             } else if (bmi < 25) {
                 category = "Peso normal";
                 color = "#4caf50";
+                advice = "¡Excelente! Mantén tu estilo de vida saludable.";
             } else if (bmi < 30) {
                 category = "Sobrepeso";
                 color = "#ff9800";
+                advice = "Considera un plan de ejercicio y nutrición para alcanzar un peso saludable.";
             } else {
                 category = "Obesidad";
                 color = "#f44336";
+                advice = "Consulta con un profesional de la salud para un plan personalizado.";
             }
             
-            bmiResult.innerHTML = `${bmiRounded} - <span style="color: ${color}">${category}</span>`;
-            bmiResult.style.backgroundColor = `${color}20`;
+            const bmiResult = document.getElementById('bmiResult');
+            bmiResult.innerHTML = `
+                <div style="font-size: 2rem; font-weight: bold; color: ${color};">${bmiRounded}</div>
+                <div style="font-size: 1.2rem; margin: 10px 0;">${category}</div>
+                <div style="font-size: 0.9rem; color: #ccc;">${advice}</div>
+            `;
+            bmiResult.style.backgroundColor = `${color}10`;
+            bmiResult.style.border = `2px solid ${color}`;
+            bmiResult.style.borderRadius = '15px';
             
-            appState.userStats.bmi = bmiRounded;
-            appState.userStats.weight = weight;
-            document.getElementById('currentWeight').textContent = weight.toFixed(1);
+            appState.user.bmi = bmiRounded;
+            appState.user.weight = weight;
+            appState.user.height = height;
             
             showNotification(`📊 IMC calculado: ${bmiRounded} (${category})`);
+        }
+
+        // Establecer objetivo
+        function setGoal() {
+            const goalWeight = parseFloat(document.getElementById('goalWeight').value);
+            const weeklyGoal = document.getElementById('weeklyGoal').value;
+            
+            if (isNaN(goalWeight) || goalWeight <= 0) {
+                alert("Por favor, introduce un peso objetivo válido");
+                return;
+            }
+            
+            appState.user.goalWeight = goalWeight;
+            appState.user.weeklyGoal = weeklyGoal;
+            
+            let goalText = "";
+            let weeks = Math.abs(Math.round((appState.user.weight - goalWeight) / (weeklyGoal.includes('lose') ? 0.5 : 0.5)));
+            
+            if (weeklyGoal.includes('lose')) {
+                goalText = `🎯 Objetivo: Perder ${Math.abs(appState.user.weight - goalWeight).toFixed(1)} kg en aproximadamente ${weeks} semanas`;
+            } else if (weeklyGoal.includes('gain')) {
+                goalText = `🎯 Objetivo: Ganar ${Math.abs(goalWeight - appState.user.weight).toFixed(1)} kg en aproximadamente ${weeks} semanas`;
+            } else {
+                goalText = `🎯 Objetivo: Mantener tu peso actual de ${appState.user.weight} kg`;
+            }
+            
+            const goalResult = document.getElementById('goalResult');
+            goalResult.innerHTML = goalText;
+            goalResult.style.backgroundColor = 'rgba(78,205,196,0.1)';
+            goalResult.style.border = '2px solid var(--secondary)';
+            goalResult.style.borderRadius = '15px';
+            
+            showNotification(`✅ Objetivo establecido: ${goalText}`);
         }
 
         // Personalizar temporizador
         function customizeTimer() {
             document.getElementById('timerMinutes').value = appState.timer.minutes;
+            document.getElementById('timerMinutesSlider').value = appState.timer.minutes;
+            document.getElementById('timerMinutesValue').textContent = appState.timer.minutes + ' min';
+            
             document.getElementById('timerType').value = appState.timer.type;
-            timerModal.style.display = 'flex';
-            console.log("Modal de temporizador abierto");
+            
+            if (appState.timer.type === 'custom') {
+                document.getElementById('customIntervals').style.display = 'block';
+                document.getElementById('workInterval').value = appState.timer.workInterval;
+                document.getElementById('restInterval').value = appState.timer.restInterval;
+            } else {
+                document.getElementById('customIntervals').style.display = 'none';
+            }
+            
+            document.getElementById('warmupTime').value = appState.timer.warmup;
+            document.getElementById('warmupTimeSlider').value = appState.timer.warmup;
+            document.getElementById('warmupTimeValue').textContent = appState.timer.warmup + ' min';
+            
+            document.getElementById('cooldownTime').value = appState.timer.cooldown;
+            document.getElementById('cooldownTimeSlider').value = appState.timer.cooldown;
+            document.getElementById('cooldownTimeValue').textContent = appState.timer.cooldown + ' min';
+            
+            document.getElementById('timerModal').classList.add('active');
         }
 
         // Guardar configuración del temporizador
         function saveTimerSettings() {
             const minutes = parseInt(document.getElementById('timerMinutes').value);
             const type = document.getElementById('timerType').value;
+            const warmup = parseInt(document.getElementById('warmupTime').value);
+            const cooldown = parseInt(document.getElementById('cooldownTime').value);
             
-            if (isNaN(minutes) || minutes < 1 || minutes > 60) {
-                alert("Por favor, introduce minutos válidos (1-60)");
+            if (isNaN(minutes) || minutes < 5 || minutes > 60) {
+                alert("Por favor, introduce minutos válidos (5-60)");
                 return;
             }
             
@@ -992,39 +1934,29 @@
             appState.timer.totalSeconds = minutes * 60;
             appState.timer.seconds = 0;
             appState.timer.type = type;
+            appState.timer.warmup = warmup;
+            appState.timer.cooldown = cooldown;
+            
+            if (type === 'custom') {
+                appState.timer.workInterval = parseInt(document.getElementById('workInterval').value);
+                appState.timer.restInterval = parseInt(document.getElementById('restInterval').value);
+            }
             
             updateTimerDisplay();
             closeTimerModal();
-            showNotification(`⏱️ Temporizador configurado a ${minutes} minutos`);
+            showNotification(`⏱️ Temporizador configurado: ${minutes} minutos con ${warmup} min calentamiento y ${cooldown} min enfriamiento`);
         }
 
         // Cerrar modal del temporizador
         function closeTimerModal() {
-            timerModal.style.display = 'none';
-            console.log("Modal de temporizador cerrado");
-        }
-
-        // Añadir ejercicio a día
-        function addExerciseToDay(dayIndex) {
-            const exerciseNames = exercises.map(ex => ex.name);
-            const exerciseList = exerciseNames.join("\n");
-            const selected = prompt(`¿Qué ejercicio quieres añadir al ${appState.weeklyPlan[dayIndex].day}?\n\n${exerciseList}`);
-            
-            if (selected && exerciseNames.includes(selected)) {
-                if (appState.weeklyPlan[dayIndex].exercises[0] === "Descanso") {
-                    appState.weeklyPlan[dayIndex].exercises = [selected];
-                } else {
-                    appState.weeklyPlan[dayIndex].exercises.push(selected);
-                }
-                renderWeeklyPlan();
-                showNotification(`✅ ${selected} añadido a ${appState.weeklyPlan[dayIndex].day}`);
-            } else if (selected) {
-                alert("Ejercicio no válido. Por favor, selecciona de la lista.");
-            }
+            document.getElementById('timerModal').classList.remove('active');
         }
 
         // Temporizador - Actualizar display
         function updateTimerDisplay() {
+            const timerDisplay = document.getElementById('timer');
+            if (!timerDisplay) return;
+            
             timerDisplay.textContent = `${String(appState.timer.minutes).padStart(2, '0')}:${String(appState.timer.seconds).padStart(2, '0')}`;
             
             // Efecto visual cuando queda poco tiempo
@@ -1043,8 +1975,8 @@
             
             appState.timer.isRunning = true;
             appState.timer.isPaused = false;
-            startBtn.disabled = true;
-            pauseBtn.disabled = false;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = false;
             
             appState.timer.interval = setInterval(() => {
                 if (appState.timer.totalSeconds > 0) {
@@ -1055,14 +1987,14 @@
                 } else {
                     clearInterval(appState.timer.interval);
                     appState.timer.isRunning = false;
-                    startBtn.disabled = false;
-                    pauseBtn.disabled = true;
+                    document.getElementById('startBtn').disabled = false;
+                    document.getElementById('pauseBtn').disabled = true;
                     completeWorkout();
                     showCompletionMessage();
                 }
             }, 1000);
             
-            showNotification("▶️ Entrenamiento iniciado");
+            showNotification("▶️ Entrenamiento iniciado - ¡Vamos con todo!");
         }
 
         // Temporizador - Pausar
@@ -1071,10 +2003,10 @@
             
             clearInterval(appState.timer.interval);
             appState.timer.isPaused = true;
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
             
-            showNotification("⏸️ Entrenamiento pausado");
+            showNotification("⏸️ Entrenamiento pausado - Tómate un respiro");
         }
 
         // Temporizador - Reiniciar
@@ -1085,69 +2017,26 @@
             appState.timer.totalSeconds = appState.timer.minutes * 60;
             appState.timer.seconds = 0;
             updateTimerDisplay();
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
-            timerDisplay.style.color = 'var(--secondary)';
-            timerDisplay.style.textShadow = '0 0 10px var(--secondary)';
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
             
-            showNotification("⏹️ Temporizador reiniciado");
+            const timerDisplay = document.getElementById('timer');
+            if (timerDisplay) {
+                timerDisplay.style.color = 'var(--secondary)';
+                timerDisplay.style.textShadow = '0 0 10px var(--secondary)';
+            }
+            
+            showNotification("⏹️ Temporizador reiniciado - Listo para empezar de nuevo");
         }
 
         // Completar entrenamiento
         function completeWorkout() {
-            appState.userStats.totalWorkouts++;
-            appState.userStats.totalHours += appState.timer.minutes / 60;
-            appState.userStats.caloriesBurned += calculateWorkoutCalories();
-            appState.userStats.currentStreak++;
-            
-            updateStatsDisplay();
-            saveUserStats();
-        }
-
-        // Calcular calorías quemadas en el entrenamiento
-        function calculateWorkoutCalories() {
-            let totalCalories = 0;
-            const workoutMinutes = appState.timer.minutes;
-            
-            // Calcular basado en ejercicios configurados
-            Object.values(appState.exerciseSettings).forEach(settings => {
-                const exercise = exercises.find(ex => appState.exerciseSettings[ex.id] === settings);
-                if (exercise) {
-                    totalCalories += (settings.duration / 60) * exercise.caloriesPerMin * settings.sets;
-                }
-            });
-            
-            // Si no hay ejercicios configurados, usar promedio
-            if (totalCalories === 0) {
-                totalCalories = workoutMinutes * 10; // 10 cal/min promedio
-            }
-            
-            return Math.round(totalCalories);
+            showNotification("🎉 ¡Entrenamiento completado! ¡Excelente trabajo!");
         }
 
         // Mostrar mensaje de completado
         function showCompletionMessage() {
-            const calories = calculateWorkoutCalories();
-            alert(`¡Felicidades! Has completado tu entrenamiento de ${appState.timer.minutes} minutos.\nCalorías quemadas: ${calories}\n¡Sigue así!`);
-        }
-
-        // Actualizar estadísticas en pantalla
-        function updateStatsDisplay() {
-            document.getElementById('totalWorkouts').textContent = appState.userStats.totalWorkouts;
-            document.getElementById('totalHours').textContent = appState.userStats.totalHours.toFixed(1);
-            document.getElementById('caloriesBurned').textContent = appState.userStats.caloriesBurned.toLocaleString();
-            document.getElementById('currentStreak').textContent = appState.userStats.currentStreak;
-            document.getElementById('currentWeight').textContent = appState.userStats.weight.toFixed(1);
-            
-            // Actualizar progreso semanal
-            const progressPercent = Math.min(100, (appState.userStats.currentStreak / 7) * 100);
-            document.getElementById('weeklyProgress').style.width = `${progressPercent}%`;
-        }
-
-        // Guardar estadísticas de usuario (simulado)
-        function saveUserStats() {
-            // En un entorno real, usarías localStorage:
-            // localStorage.setItem('fitnessProStats', JSON.stringify(appState.userStats));
+            alert(`¡Felicidades! Has completado tu entrenamiento de ${appState.timer.minutes} minutos.\n¡Descansa, hidrátate y prepárate para tu próxima sesión! 💪`);
         }
 
         // Mostrar notificación
@@ -1160,6 +2049,16 @@
             
             const notification = document.createElement('div');
             notification.className = 'notification';
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.background = 'var(--success)';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '8px';
+            notification.style.zIndex = '10000';
+            notification.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+            notification.style.animation = 'slideIn 0.3s ease, fadeOut 0.5s ease 2.5s forwards';
             notification.innerHTML = message;
             document.body.appendChild(notification);
             
@@ -1170,12 +2069,6 @@
                 }
             }, 3000);
         }
-
-        // Inicializar la aplicación cuando se cargue la página
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("DOM cargado, inicializando aplicación...");
-            init();
-        });
     </script>
 </body>
 </html>
