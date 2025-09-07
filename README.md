@@ -1,1 +1,1181 @@
 # index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>🏆 FITNESS PRO - Tu Entrenador Personal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --accent: #45b7d1;
+            --dark: #292f36;
+            --light: #f7fff7;
+            --gray: #4a4a4a;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(255,107,107,0.5);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .bmi-calculator {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 250px;
+        }
+        .bmi-calculator input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid var(--secondary);
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .bmi-calculator button {
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        .bmi-calculator button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--secondary);
+        }
+        .bmi-result {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background: var(--dark);
+        }
+        .timer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            background: var(--dark);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            min-width: 200px;
+            text-align: center;
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+            transition: all 0.3s ease;
+        }
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .timer-controls button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 5px;
+            min-width: 120px;
+        }
+        .start-btn { background: var(--success); color: white; }
+        .pause-btn { background: var(--warning); color: white; }
+        .reset-btn { background: var(--primary); color: white; }
+        .timer-controls button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px currentColor;
+        }
+        .workout-section {
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .exercise-card {
+            background: var(--dark);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        .exercise-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+            border-color: var(--secondary);
+        }
+        .exercise-card h3 {
+            color: var(--primary);
+            margin: 15px 0 15px;
+            font-size: 1.4rem;
+        }
+        .exercise-icon {
+            font-size: 4rem;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 12px;
+        }
+        .exercise-card p {
+            color: #ccc;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .exercise-duration {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .exercise-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--dark);
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            position: relative;
+            animation: modalAppear 0.3s ease;
+        }
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .close-modal:hover {
+            color: var(--primary);
+        }
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        .modal-header h3 {
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+        .exercise-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        .form-group input, .form-group select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--accent);
+            background: #1a1a2e;
+            color: white;
+            font-size: 1rem;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .form-actions button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .save-btn { background: var(--success); color: white; }
+        .cancel-btn { background: var(--gray); color: white; }
+        .form-actions button:hover {
+            transform: scale(1.05);
+        }
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .stat-card p {
+            color: #ccc;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .weekly-plan {
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .week-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .day-card {
+            background: var(--dark);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 150px;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+        }
+        .day-card h4 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .day-exercises {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+            min-height: 60px;
+        }
+        .add-exercise-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .add-exercise-btn:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 10000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .timer-display {
+                font-size: 3rem;
+            }
+            .week-days {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏆 FITNESS PRO</h1>
+            <p>Tu entrenador personal inteligente - Planes personalizados y seguimiento profesional</p>
+            
+            <div class="user-profile">
+                <div class="bmi-calculator">
+                    <h3>📊 Calculadora IMC</h3>
+                    <input type="number" id="weight" placeholder="Peso (kg)" min="30" max="300" step="0.1">
+                    <input type="number" id="height" placeholder="Altura (cm)" min="100" max="250">
+                    <button id="calculateBMI">Calcular IMC</button>
+                    <div class="bmi-result" id="bmiResult">Introduce tus datos</div>
+                </div>
+                
+                <div class="bmi-calculator">
+                    <h3>📈 Progreso Semanal</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="weeklyProgress" style="width: 65%;"></div>
+                    </div>
+                    <p>65% completado esta semana</p>
+                    <p>Peso actual: <span id="currentWeight">75.5</span> kg</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="timer-section">
+            <h2>⏱️ Temporizador de Entrenamiento</h2>
+            <div class="timer-display" id="timer">05:00</div>
+            <div class="timer-controls">
+                <button class="start-btn" id="startBtn">▶️ Iniciar</button>
+                <button class="pause-btn" id="pauseBtn" disabled>⏸️ Pausar</button>
+                <button class="reset-btn" id="resetBtn">⏹️ Reiniciar</button>
+                <button id="customizeTimer" style="background: var(--accent); color: white; padding: 15px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">⚙️ Personalizar</button>
+            </div>
+        </div>
+
+        <div class="workout-section">
+            <h2>💪 Ejercicios Disponibles</h2>
+            <div class="exercise-grid" id="exerciseGrid">
+                <!-- Los ejercicios se generarán aquí con JavaScript -->
+            </div>
+        </div>
+
+        <div class="weekly-plan">
+            <h2>📅 Plan Semanal</h2>
+            <div class="week-days" id="weekDays">
+                <!-- Los días de la semana se generarán aquí -->
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <h3 id="totalWorkouts">24</h3>
+                <p>Entrenamientos Completados</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalHours">12.5</h3>
+                <p>Horas Entrenadas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="caloriesBurned">8,450</h3>
+                <p>Calorías Quemadas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="currentStreak">7</h3>
+                <p>Días Consecutivos</p>
+            </div>
+        </div>
+
+        <footer>
+            <p> FITNESS PRO © 2024 - Transforma tu cuerpo, transforma tu vida</p>
+            <p>Los resultados varían según el individuo. Consulta con un profesional antes de comenzar cualquier programa de ejercicio.</p>
+        </footer>
+    </div>
+
+    <!-- Modal para personalizar ejercicio -->
+    <div class="exercise-modal" id="exerciseModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeExerciseModal">&times;</button>
+            <div class="modal-header">
+                <h3 id="modalTitle">Personalizar Ejercicio</h3>
+            </div>
+            <div class="exercise-form">
+                <div class="form-group">
+                    <label for="exerciseDuration">Duración (segundos)</label>
+                    <input type="number" id="exerciseDuration" min="10" max="300" value="45">
+                </div>
+                <div class="form-group">
+                    <label for="exerciseReps">Repeticiones</label>
+                    <input type="number" id="exerciseReps" min="1" max="50" value="15">
+                </div>
+                <div class="form-group">
+                    <label for="exerciseSets">Series</label>
+                    <input type="number" id="exerciseSets" min="1" max="10" value="3">
+                </div>
+                <div class="form-group">
+                    <label for="exerciseIntensity">Intensidad</label>
+                    <select id="exerciseIntensity">
+                        <option value="low">Baja</option>
+                        <option value="medium" selected>Media</option>
+                        <option value="high">Alta</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button class="save-btn" id="saveExerciseSettings">✅ Guardar Configuración</button>
+                    <button class="cancel-btn" id="cancelExerciseSettings">❌ Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para personalizar temporizador -->
+    <div class="exercise-modal" id="timerModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeTimerModal">&times;</button>
+            <div class="modal-header">
+                <h3>Personalizar Temporizador</h3>
+            </div>
+            <div class="exercise-form">
+                <div class="form-group">
+                    <label for="timerMinutes">Minutos</label>
+                    <input type="number" id="timerMinutes" min="1" max="60" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="timerType">Tipo de Entrenamiento</label>
+                    <select id="timerType">
+                        <option value="hiit">HIIT (20s ejercicio / 10s descanso)</option>
+                        <option value="tabata">Tabata (40s ejercicio / 20s descanso)</option>
+                        <option value="custom" selected>Personalizado</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button class="save-btn" id="saveTimerSettings">✅ Aplicar</button>
+                    <button class="cancel-btn" id="cancelTimerSettings">❌ Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de ejercicios
+        const exercises = [
+            {
+                id: 1,
+                name: "Sentadillas",
+                icon: "🦵",
+                description: "Pies al ancho de hombros, baja como si te sentaras en una silla. Mantén la espalda recta.",
+                defaultDuration: 45,
+                defaultReps: 15,
+                defaultSets: 3,
+                caloriesPerMin: 8,
+                muscleGroups: ["Piernas", "Glúteos"]
+            },
+            {
+                id: 2,
+                name: "Flexiones",
+                icon: "💪",
+                description: "Mantén el cuerpo recto, baja el pecho hacia el suelo. Codos a 45 grados del cuerpo.",
+                defaultDuration: 45,
+                defaultReps: 12,
+                defaultSets: 3,
+                caloriesPerMin: 10,
+                muscleGroups: ["Pecho", "Tríceps", "Hombros"]
+            },
+            {
+                id: 3,
+                name: "Plancha",
+                icon: "🧘‍♂️",
+                description: "Cuerpo recto, codos bajo hombros, mantén la posición sin bajar la cadera.",
+                defaultDuration: 30,
+                defaultReps: 1,
+                defaultSets: 3,
+                caloriesPerMin: 5,
+                muscleGroups: ["Abdominales", "Core"]
+            },
+            {
+                id: 4,
+                name: "Burpees",
+                icon: "🤸‍♂️",
+                description: "De pie, baja al suelo, salta hacia atrás, vuelve y salta arriba con las manos.",
+                defaultDuration: 45,
+                defaultReps: 10,
+                defaultSets: 3,
+                caloriesPerMin: 12,
+                muscleGroups: ["Cardio", "Cuerpo completo"]
+            },
+            {
+                id: 5,
+                name: "Mountain Climbers",
+                icon: "🏃‍♂️",
+                description: "En posición de plancha, lleva rodillas al pecho alternadamente lo más rápido posible.",
+                defaultDuration: 45,
+                defaultReps: 30,
+                defaultSets: 3,
+                caloriesPerMin: 11,
+                muscleGroups: ["Cardio", "Abdominales"]
+            },
+            {
+                id: 6,
+                name: "Jumping Jacks",
+                icon: "🕺",
+                description: "Salta abriendo piernas y brazos, luego vuelve a cerrarlos. Mantén el ritmo constante.",
+                defaultDuration: 60,
+                defaultReps: 50,
+                defaultSets: 3,
+                caloriesPerMin: 9,
+                muscleGroups: ["Cardio", "Piernas"]
+            },
+            {
+                id: 7,
+                name: "Lunges",
+                icon: "🦵",
+                description: "Da un paso adelante, baja hasta que ambas rodillas formen 90°. Alterna piernas.",
+                defaultDuration: 45,
+                defaultReps: 12,
+                defaultSets: 3,
+                caloriesPerMin: 8,
+                muscleGroups: ["Piernas", "Glúteos"]
+            },
+            {
+                id: 8,
+                name: "Abdominales",
+                icon: "🤸‍♀️",
+                description: "Acostado, levanta torso hacia rodillas, controla la bajada. No tires del cuello.",
+                defaultDuration: 45,
+                defaultReps: 20,
+                defaultSets: 3,
+                caloriesPerMin: 7,
+                muscleGroups: ["Abdominales"]
+            },
+            {
+                id: 9,
+                name: "Zancadas",
+                icon: "🚶‍♂️",
+                description: "Caminata con zancadas profundas, manteniendo el equilibrio y la postura.",
+                defaultDuration: 60,
+                defaultReps: 15,
+                defaultSets: 3,
+                caloriesPerMin: 9,
+                muscleGroups: ["Piernas", "Glúteos"]
+            },
+            {
+                id: 10,
+                name: "Puente de Glúteos",
+                icon: "🍑",
+                description: "Acostado, levanta cadera contrayendo glúteos. Baja lentamente sin tocar el suelo.",
+                defaultDuration: 45,
+                defaultReps: 15,
+                defaultSets: 3,
+                caloriesPerMin: 6,
+                muscleGroups: ["Glúteos", "Espalda baja"]
+            }
+        ];
+
+        // Estado de la aplicación
+        let appState = {
+            currentExercise: null,
+            timer: {
+                minutes: 5,
+                seconds: 0,
+                totalSeconds: 300,
+                isRunning: false,
+                isPaused: false,
+                interval: null,
+                type: "custom"
+            },
+            userStats: {
+                totalWorkouts: 24,
+                totalHours: 12.5,
+                caloriesBurned: 8450,
+                currentStreak: 7,
+                weight: 75.5,
+                bmi: 0
+            },
+            weeklyPlan: [
+                { day: "Lunes", exercises: ["Sentadillas", "Flexiones", "Plancha"] },
+                { day: "Martes", exercises: ["Burpees", "Mountain Climbers"] },
+                { day: "Miércoles", exercises: ["Jumping Jacks", "Lunges", "Abdominales"] },
+                { day: "Jueves", exercises: ["Sentadillas", "Puente de Glúteos"] },
+                { day: "Viernes", exercises: ["Burpees", "Flexiones", "Plancha"] },
+                { day: "Sábado", exercises: ["Mountain Climbers", "Jumping Jacks", "Zancadas"] },
+                { day: "Domingo", exercises: ["Descanso"] }
+            ],
+            exerciseSettings: {}
+        };
+
+        // Elementos del DOM
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const exerciseGrid = document.getElementById('exerciseGrid');
+        const weekDays = document.getElementById('weekDays');
+        const exerciseModal = document.getElementById('exerciseModal');
+        const timerModal = document.getElementById('timerModal');
+        const modalTitle = document.getElementById('modalTitle');
+        
+        // Botones de IMC
+        const calculateBMIButton = document.getElementById('calculateBMI');
+        const weightInput = document.getElementById('weight');
+        const heightInput = document.getElementById('height');
+        const bmiResult = document.getElementById('bmiResult');
+        
+        // Botones de temporizador
+        const customizeTimerButton = document.getElementById('customizeTimer');
+        const closeTimerModalButton = document.getElementById('closeTimerModal');
+        const saveTimerSettingsButton = document.getElementById('saveTimerSettings');
+        const cancelTimerSettingsButton = document.getElementById('cancelTimerSettings');
+        
+        // Botones de ejercicio
+        const closeExerciseModalButton = document.getElementById('closeExerciseModal');
+        const saveExerciseSettingsButton = document.getElementById('saveExerciseSettings');
+        const cancelExerciseSettingsButton = document.getElementById('cancelExerciseSettings');
+
+        // Inicializar la aplicación
+        function init() {
+            console.log("Inicializando aplicación...");
+            renderExercises();
+            renderWeeklyPlan();
+            updateTimerDisplay();
+            updateStatsDisplay();
+            
+            // Event listeners para IMC
+            calculateBMIButton.addEventListener('click', calculateBMI);
+            weightInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') calculateBMI();
+            });
+            heightInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') calculateBMI();
+            });
+            
+            // Event listeners para temporizador
+            startBtn.addEventListener('click', startTimer);
+            pauseBtn.addEventListener('click', pauseTimer);
+            resetBtn.addEventListener('click', resetTimer);
+            customizeTimerButton.addEventListener('click', customizeTimer);
+            closeTimerModalButton.addEventListener('click', closeTimerModal);
+            saveTimerSettingsButton.addEventListener('click', saveTimerSettings);
+            cancelTimerSettingsButton.addEventListener('click', closeTimerModal);
+            
+            // Event listeners para ejercicios
+            closeExerciseModalButton.addEventListener('click', closeExerciseModal);
+            saveExerciseSettingsButton.addEventListener('click', saveExerciseSettings);
+            cancelExerciseSettingsButton.addEventListener('click', closeExerciseModal);
+            
+            console.log("Aplicación inicializada correctamente");
+        }
+
+        // Renderizar ejercicios
+        function renderExercises() {
+            exerciseGrid.innerHTML = '';
+            exercises.forEach(exercise => {
+                const card = document.createElement('div');
+                card.className = 'exercise-card';
+                card.innerHTML = `
+                    <div class="exercise-icon">${exercise.icon}</div>
+                    <h3>${exercise.name}</h3>
+                    <p>${exercise.description}</p>
+                    <div class="exercise-duration">⭐ ${exercise.defaultDuration}s | ${exercise.defaultReps} rep</div>
+                `;
+                card.addEventListener('click', function() {
+                    console.log(`Abriendo modal para: ${exercise.name}`);
+                    openExerciseModal(exercise);
+                });
+                exerciseGrid.appendChild(card);
+            });
+        }
+
+        // Renderizar plan semanal
+        function renderWeeklyPlan() {
+            weekDays.innerHTML = '';
+            appState.weeklyPlan.forEach((day, index) => {
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                let exercisesHTML = '';
+                if (day.exercises[0] === "Descanso") {
+                    exercisesHTML = '<p style="color: var(--success); font-weight: bold;">💪 DESCANSO</p>';
+                } else {
+                    exercisesHTML = day.exercises.map(ex => `<div>• ${ex}</div>`).join('');
+                }
+                dayCard.innerHTML = `
+                    <h4>${day.day}</h4>
+                    <div class="day-exercises">${exercisesHTML}</div>
+                    <button class="add-exercise-btn" data-day-index="${index}">➕ Añadir</button>
+                `;
+                
+                // Añadir evento al botón de añadir
+                const addButton = dayCard.querySelector('.add-exercise-btn');
+                addButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const dayIndex = parseInt(this.getAttribute('data-day-index'));
+                    addExerciseToDay(dayIndex);
+                });
+                
+                weekDays.appendChild(dayCard);
+            });
+        }
+
+        // Abrir modal de ejercicio
+        function openExerciseModal(exercise) {
+            console.log("Abriendo modal de ejercicio:", exercise.name);
+            appState.currentExercise = exercise;
+            modalTitle.textContent = `Personalizar ${exercise.name}`;
+            
+            // Cargar configuración guardada o usar valores por defecto
+            const settings = appState.exerciseSettings[exercise.id] || {
+                duration: exercise.defaultDuration,
+                reps: exercise.defaultReps,
+                sets: exercise.defaultSets,
+                intensity: "medium"
+            };
+            
+            document.getElementById('exerciseDuration').value = settings.duration;
+            document.getElementById('exerciseReps').value = settings.reps;
+            document.getElementById('exerciseSets').value = settings.sets;
+            document.getElementById('exerciseIntensity').value = settings.intensity;
+            
+            exerciseModal.style.display = 'flex';
+            console.log("Modal de ejercicio abierto");
+        }
+
+        // Guardar configuración del ejercicio
+        function saveExerciseSettings() {
+            if (!appState.currentExercise) {
+                console.error("No hay ejercicio seleccionado");
+                return;
+            }
+            
+            const duration = parseInt(document.getElementById('exerciseDuration').value);
+            const reps = parseInt(document.getElementById('exerciseReps').value);
+            const sets = parseInt(document.getElementById('exerciseSets').value);
+            const intensity = document.getElementById('exerciseIntensity').value;
+            
+            if (isNaN(duration) || isNaN(reps) || isNaN(sets)) {
+                alert("Por favor, introduce valores válidos");
+                return;
+            }
+            
+            const settings = {
+                duration: duration,
+                reps: reps,
+                sets: sets,
+                intensity: intensity
+            };
+            
+            appState.exerciseSettings[appState.currentExercise.id] = settings;
+            
+            // Actualizar la tarjeta del ejercicio
+            const cards = document.querySelectorAll('.exercise-card');
+            let found = false;
+            cards.forEach(card => {
+                if (card.querySelector('h3').textContent === appState.currentExercise.name) {
+                    card.querySelector('.exercise-duration').textContent = 
+                        `⭐ ${settings.duration}s | ${settings.reps} rep | ${settings.sets} series`;
+                    found = true;
+                }
+            });
+            
+            if (found) {
+                showNotification(`✅ Configuración de ${appState.currentExercise.name} guardada`);
+            } else {
+                console.warn("No se encontró la tarjeta del ejercicio para actualizar");
+            }
+            
+            closeExerciseModal();
+        }
+
+        // Cerrar modal de ejercicio
+        function closeExerciseModal() {
+            exerciseModal.style.display = 'none';
+            appState.currentExercise = null;
+            console.log("Modal de ejercicio cerrado");
+        }
+
+        // Calcular IMC
+        function calculateBMI() {
+            const weight = parseFloat(weightInput.value);
+            const height = parseFloat(heightInput.value);
+            
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                alert("Por favor, introduce valores válidos para peso y altura");
+                return;
+            }
+            
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const bmiRounded = Math.round(bmi * 10) / 10;
+            
+            let category = "";
+            let color = "";
+            
+            if (bmi < 18.5) {
+                category = "Bajo peso";
+                color = "#ff9800";
+            } else if (bmi < 25) {
+                category = "Peso normal";
+                color = "#4caf50";
+            } else if (bmi < 30) {
+                category = "Sobrepeso";
+                color = "#ff9800";
+            } else {
+                category = "Obesidad";
+                color = "#f44336";
+            }
+            
+            bmiResult.innerHTML = `${bmiRounded} - <span style="color: ${color}">${category}</span>`;
+            bmiResult.style.backgroundColor = `${color}20`;
+            
+            appState.userStats.bmi = bmiRounded;
+            appState.userStats.weight = weight;
+            document.getElementById('currentWeight').textContent = weight.toFixed(1);
+            
+            showNotification(`📊 IMC calculado: ${bmiRounded} (${category})`);
+        }
+
+        // Personalizar temporizador
+        function customizeTimer() {
+            document.getElementById('timerMinutes').value = appState.timer.minutes;
+            document.getElementById('timerType').value = appState.timer.type;
+            timerModal.style.display = 'flex';
+            console.log("Modal de temporizador abierto");
+        }
+
+        // Guardar configuración del temporizador
+        function saveTimerSettings() {
+            const minutes = parseInt(document.getElementById('timerMinutes').value);
+            const type = document.getElementById('timerType').value;
+            
+            if (isNaN(minutes) || minutes < 1 || minutes > 60) {
+                alert("Por favor, introduce minutos válidos (1-60)");
+                return;
+            }
+            
+            appState.timer.minutes = minutes;
+            appState.timer.totalSeconds = minutes * 60;
+            appState.timer.seconds = 0;
+            appState.timer.type = type;
+            
+            updateTimerDisplay();
+            closeTimerModal();
+            showNotification(`⏱️ Temporizador configurado a ${minutes} minutos`);
+        }
+
+        // Cerrar modal del temporizador
+        function closeTimerModal() {
+            timerModal.style.display = 'none';
+            console.log("Modal de temporizador cerrado");
+        }
+
+        // Añadir ejercicio a día
+        function addExerciseToDay(dayIndex) {
+            const exerciseNames = exercises.map(ex => ex.name);
+            const exerciseList = exerciseNames.join("\n");
+            const selected = prompt(`¿Qué ejercicio quieres añadir al ${appState.weeklyPlan[dayIndex].day}?\n\n${exerciseList}`);
+            
+            if (selected && exerciseNames.includes(selected)) {
+                if (appState.weeklyPlan[dayIndex].exercises[0] === "Descanso") {
+                    appState.weeklyPlan[dayIndex].exercises = [selected];
+                } else {
+                    appState.weeklyPlan[dayIndex].exercises.push(selected);
+                }
+                renderWeeklyPlan();
+                showNotification(`✅ ${selected} añadido a ${appState.weeklyPlan[dayIndex].day}`);
+            } else if (selected) {
+                alert("Ejercicio no válido. Por favor, selecciona de la lista.");
+            }
+        }
+
+        // Temporizador - Actualizar display
+        function updateTimerDisplay() {
+            timerDisplay.textContent = `${String(appState.timer.minutes).padStart(2, '0')}:${String(appState.timer.seconds).padStart(2, '0')}`;
+            
+            // Efecto visual cuando queda poco tiempo
+            if (appState.timer.totalSeconds <= 10) {
+                timerDisplay.style.color = '#ff6b6b';
+                timerDisplay.style.textShadow = '0 0 20px #ff6b6b';
+            } else {
+                timerDisplay.style.color = 'var(--secondary)';
+                timerDisplay.style.textShadow = '0 0 10px var(--secondary)';
+            }
+        }
+
+        // Temporizador - Iniciar
+        function startTimer() {
+            if (appState.timer.isRunning && !appState.timer.isPaused) return;
+            
+            appState.timer.isRunning = true;
+            appState.timer.isPaused = false;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            
+            appState.timer.interval = setInterval(() => {
+                if (appState.timer.totalSeconds > 0) {
+                    appState.timer.totalSeconds--;
+                    appState.timer.seconds = appState.timer.totalSeconds % 60;
+                    appState.timer.minutes = Math.floor(appState.timer.totalSeconds / 60);
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(appState.timer.interval);
+                    appState.timer.isRunning = false;
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    completeWorkout();
+                    showCompletionMessage();
+                }
+            }, 1000);
+            
+            showNotification("▶️ Entrenamiento iniciado");
+        }
+
+        // Temporizador - Pausar
+        function pauseTimer() {
+            if (!appState.timer.isRunning) return;
+            
+            clearInterval(appState.timer.interval);
+            appState.timer.isPaused = true;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            
+            showNotification("⏸️ Entrenamiento pausado");
+        }
+
+        // Temporizador - Reiniciar
+        function resetTimer() {
+            clearInterval(appState.timer.interval);
+            appState.timer.isRunning = false;
+            appState.timer.isPaused = false;
+            appState.timer.totalSeconds = appState.timer.minutes * 60;
+            appState.timer.seconds = 0;
+            updateTimerDisplay();
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            timerDisplay.style.color = 'var(--secondary)';
+            timerDisplay.style.textShadow = '0 0 10px var(--secondary)';
+            
+            showNotification("⏹️ Temporizador reiniciado");
+        }
+
+        // Completar entrenamiento
+        function completeWorkout() {
+            appState.userStats.totalWorkouts++;
+            appState.userStats.totalHours += appState.timer.minutes / 60;
+            appState.userStats.caloriesBurned += calculateWorkoutCalories();
+            appState.userStats.currentStreak++;
+            
+            updateStatsDisplay();
+            saveUserStats();
+        }
+
+        // Calcular calorías quemadas en el entrenamiento
+        function calculateWorkoutCalories() {
+            let totalCalories = 0;
+            const workoutMinutes = appState.timer.minutes;
+            
+            // Calcular basado en ejercicios configurados
+            Object.values(appState.exerciseSettings).forEach(settings => {
+                const exercise = exercises.find(ex => appState.exerciseSettings[ex.id] === settings);
+                if (exercise) {
+                    totalCalories += (settings.duration / 60) * exercise.caloriesPerMin * settings.sets;
+                }
+            });
+            
+            // Si no hay ejercicios configurados, usar promedio
+            if (totalCalories === 0) {
+                totalCalories = workoutMinutes * 10; // 10 cal/min promedio
+            }
+            
+            return Math.round(totalCalories);
+        }
+
+        // Mostrar mensaje de completado
+        function showCompletionMessage() {
+            const calories = calculateWorkoutCalories();
+            alert(`¡Felicidades! Has completado tu entrenamiento de ${appState.timer.minutes} minutos.\nCalorías quemadas: ${calories}\n¡Sigue así!`);
+        }
+
+        // Actualizar estadísticas en pantalla
+        function updateStatsDisplay() {
+            document.getElementById('totalWorkouts').textContent = appState.userStats.totalWorkouts;
+            document.getElementById('totalHours').textContent = appState.userStats.totalHours.toFixed(1);
+            document.getElementById('caloriesBurned').textContent = appState.userStats.caloriesBurned.toLocaleString();
+            document.getElementById('currentStreak').textContent = appState.userStats.currentStreak;
+            document.getElementById('currentWeight').textContent = appState.userStats.weight.toFixed(1);
+            
+            // Actualizar progreso semanal
+            const progressPercent = Math.min(100, (appState.userStats.currentStreak / 7) * 100);
+            document.getElementById('weeklyProgress').style.width = `${progressPercent}%`;
+        }
+
+        // Guardar estadísticas de usuario (simulado)
+        function saveUserStats() {
+            // En un entorno real, usarías localStorage:
+            // localStorage.setItem('fitnessProStats', JSON.stringify(appState.userStats));
+        }
+
+        // Mostrar notificación
+        function showNotification(message) {
+            // Eliminar notificaciones anteriores
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                notification.remove();
+            });
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            // Eliminar después de 3 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+
+        // Inicializar la aplicación cuando se cargue la página
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM cargado, inicializando aplicación...");
+            init();
+        });
+    </script>
+</body>
+</html>
